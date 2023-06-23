@@ -76,7 +76,7 @@ select {
     background-color: #312e81;
     color: white;
 }
-#imagesdiv * {
+#imagesdiv *, #imagesdiv2 * {
     max-width: 10vw;
 }
 @media (max-width: 500px) {

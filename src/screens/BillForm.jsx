@@ -1,8 +1,5 @@
-import React, { useState, useEffect, useContext, forwardRef, useRef, } from "react";
+import React, { useState, forwardRef } from "react";
 import { toast } from "react-toastify";
-import { addDoc, doc, collection, serverTimestamp } from "@firebase/firestore";
-import { db } from "../firebase.js";
-import { AuthContext } from "../App.jsx";
 import { hospitals } from "../data/finalhospitals.js";
 import { useTransition, animated } from 'react-spring';
 import ReactDatePicker from "react-datepicker";
@@ -22,6 +19,7 @@ export const BillForm = ({ setFormData }) => {
     hospitalname: "",
     date: "",
     amount: "",
+    image: "",
   });
   const pages = [0, 1, 2]
 
@@ -31,10 +29,8 @@ export const BillForm = ({ setFormData }) => {
     from: { opacity: 0, transform: transitionDirection === 'next' ? 'translate3d(100%,0,0)' : 'translate3d(-100%,0,0)'},
     enter: { opacity: 1, transform: 'translate3d(0%,0,0)' },
     leave: { opacity: 0, transform: transitionDirection === 'next' ? 'translate3d(-100%,0,0)' : 'translate3d(100%,0,0)' },
-    // config: { duration: 5000 }
   })
 
-  // looks for suggested stock options
   const handleHospitals = async (event) => {
     const value = event.target.value;
     setDataobj({ ...dataobj, hospitalname: value });
@@ -88,30 +84,42 @@ export const BillForm = ({ setFormData }) => {
   };
 
   const validateForm = () => {
+    const errorMessages = [];
     if (dataobj.name === 0 || !dataobj.name) {
-      toast.error("Please enter the patient's name.", {
-        position: toast.POSITION.TOP_CENTER,
-        theme: "colored",
-      });
-      return false;
+      errorMessages.push("Please enter the patient's name.")
     }
 
-    if (dataobj.start === "") {
-      toast.error("Please enter a start date.", {
-        position: toast.POSITION.TOP_CENTER,
-        theme: "colored",
-      });
-      return false;
+    if (dataobj.address === "" || !dataobj.address) {
+      errorMessages.push("Please enter the patient's address.")
     }
 
-    if (dataobj.finish === "") {
-      toast.error("Please enter an end date.", {
-        position: toast.POSITION.TOP_CENTER,
-        theme: "colored",
-      });
-      return false;
+    if (dataobj.hospitalname === "" || !dataobj.hospitalname) {
+      errorMessages.push("Please enter the patient's hospital.")
+    }
+    if (dataobj.date === "") {
+      errorMessages.push("Please enter a date of service.")
+    }
+    if (dataobj.amount === "") {
+      errorMessages.push("Please enter the amount of the bill.")
     }
 
+    if (dataobj.image === "") {
+      errorMessages.push("Please upload an image of the bill.")
+    } else if (dataobj.image.size > 1000000) {
+      errorMessages.push("Please upload an image smaller than 1MB.")
+    }
+
+    if (errorMessages.length > 0) {
+      errorMessages.forEach((errorMessage) => {
+        toast.error(errorMessage, {
+          position: toast.POSITION.TOP_CENTER,
+          theme: "colored",
+        });
+      });
+  
+      return false;
+    }
+  
     return true;
   };
 
@@ -211,8 +219,10 @@ export const BillForm = ({ setFormData }) => {
                 <div id="imagesdiv"></div>
                 <button
                   onClick={() => {
-                    setCurrentPage(1);
-                    setTransitionDirection('next')
+                    if (validateForm()) {
+                      setCurrentPage(1);
+                      setTransitionDirection('next')
+                    }
                   }}
                   className="buttons text-white"
                 >

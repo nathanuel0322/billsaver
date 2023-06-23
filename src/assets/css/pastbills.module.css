@@ -8,11 +8,6 @@
     background-color: #503bd0;
     z-index: -1;
 }
-.pastbillsdiv {
-    row-gap: 1.5rem;
-    max-width: 85%;
-    margin-left: 9vw;
-}
 .pastbillsdiv > div {
     background-color: #f4efe8;
     border-radius: 8px;

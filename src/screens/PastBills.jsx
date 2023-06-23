@@ -49,9 +49,9 @@ export default function PastBills() {
 
   return (
     <div>
-      <div
-        id="pastbillsdiv"
+      <div id="pastbillsdiv"
         className={styles["pastbillsdiv"] + " flex flex-col items-center justify-center relative"}
+        style={{ rowGap: foundpast.length > 0 && '1.5rem', maxWidth: foundpast.length > 0 && '85%', marginLeft: foundpast.length > 0 && '9vw' }}
       >
         {foundpast.length === 0 && (
           <div>
