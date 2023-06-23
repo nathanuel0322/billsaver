@@ -1,0 +1,61 @@
+#homeouterdiv {
+  font-size:  2rem;
+  color: white;
+  text-align: center;
+  padding-top: 5vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 2vh;
+}
+#typedvote {
+  color: #f4efe8 !important;
+  font-size: 150%;
+}
+.typed-cursor {
+  font-size: 150%;
+}
+#questouterdiv::before, #pastsearchesdiv::before, #portfolioform::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+#questouterdiv > span > :first-child {
+  border: 15px solid white !important;
+}
+#questouterdiv > span > :last-child {
+  border: 15px solid blue !important;
+}
+.toprightbuttons {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  top: 1vh;
+  right: 3vh;
+}
+.toprightbuttons > * {
+  color: white !important;
+  background: linear-gradient(to right, powderblue -50%, #3017cd) !important;
+}
+.toprightbuttons > *:hover {
+  color: black !important;
+}
+@media (max-width: 654px) {
+  #typedvote {
+    font-size: 120%;
+    height: 5vh;
+  }
+}
+
+
+
+#signoutbutton {
+  align-self: flex-end;
+  margin-right: 6vw;
+  margin-top: 0px;
+}

@@ -1,3 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+button, [type='button'], [type='reset'], [type='submit'] {
+  background-color: darkblue;
+}
+
+#root {
+  width: 100vw;
+}
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,6 +16,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  min-width: 320px;
+  min-height: 100vh;
+  background: linear-gradient(360deg, #00d2ff 0%, #3a47d5 100%);
 }
 
 code {
